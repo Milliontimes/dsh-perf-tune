@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Performance tune">
+  <defs>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16324a"/>
+      <stop offset="1" stop-color="#0b1b28"/>
+    </linearGradient>
+  </defs>
+  <rect x="14" y="14" width="36" height="36" rx="7" fill="url(#chip)" stroke="#38d6c4" stroke-width="2.5"/>
+  <rect x="24" y="24" width="16" height="16" rx="3" fill="none" stroke="#38d6c4" stroke-width="2"/>
+  <path d="M22 6v8M32 6v8M42 6v8M22 50v8M32 50v8M42 50v8M6 22h8M6 32h8M6 42h8M50 22h8M50 32h8M50 42h8"
+        stroke="#7fe8dc" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M28 34l3 3 6-7" stroke="#ffd166" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

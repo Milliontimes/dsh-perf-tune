@@ -1,0 +1,44 @@
+{
+  "mqtt": {
+    "host": "127.0.0.1",
+    "port": 13688,
+    "read": null,
+    "write": null
+  },
+  "nvidiaSmi": {
+    "path": null,
+    "gpuIndex": 0
+  },
+  "http": {
+    "allowHosts": ["127.0.0.1", "localhost", "::1"]
+  },
+  "command": {
+    "allowPrograms": [],
+    "allowPaths": []
+  },
+  "writes": {
+    "enabled": true,
+    "minIntervalMs": 1500
+  },
+  "limits": {
+    "nvidiaSmi": {
+      "coreMhz": { "min": 300, "max": 2100 },
+      "memMhz": { "min": 500, "max": 8000 },
+      "powerW": { "min": 60, "max": 140 }
+    },
+    "mqtt": {
+      "numeric": {
+        "ConfigurableTGPTarget": { "min": 60, "max": 140 },
+        "TargetTemperature": { "min": 60, "max": 87 },
+        "memOffset": { "min": -1000, "max": 1000 }
+      }
+    },
+    "writes": {
+      "minIntervalMs": 2000
+    }
+  },
+  "audit": {
+    "path": null,
+    "maxBytes": 1048576
+  }
+}

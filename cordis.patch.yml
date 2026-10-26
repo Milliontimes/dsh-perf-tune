@@ -1,0 +1,9 @@
+# dsh-perf-tune 的 bundle 插桩：只插入插件自己这一行。
+#
+# 插件本身没有必须 patch 的既有服务行：三个工具的注册都发生在 index.js 的
+# apply(ctx) 里（ctx.tools.register），运行时配置（安全包线收窄、MQTT 端点、
+# 审计路径）从外部 JSON 读取（默认 ~/.dsh/perf-tune/config.json），所以这里
+# 只做一次 insert，热安装/卸载都不会重启其它服务。
+- insert:
+    - id: perf-tune
+      name: '@local/dsh-perf-tune'

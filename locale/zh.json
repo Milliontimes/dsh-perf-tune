@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "性能指标 / 调频（安全包线）",
+    "description": "给 agent 提供 perf_read / perf_tune / perf_limits：读取本机性能指标（nvidia-smi、OEM 控制台 MQTT 总线、HTTP、只读命令），在硬件安全包线内调频/调功耗，写入带冷却、审计与回读校验。指标与控制清单不内置，由调用方按需描述。"
+  }
+}

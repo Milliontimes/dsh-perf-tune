@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Performance metrics / tuning (safety envelope)",
+    "description": "Adds perf_read / perf_tune / perf_limits for this machine: read performance metrics (nvidia-smi, the OEM console's local MQTT bus, HTTP, allow-listed read-only commands) and tune GPU clocks/power inside a non-widenable hardware safety envelope, with cooldown, JSONL audit and read-back verification. No metric or control catalogue is hardcoded — callers describe what to read or write per call."
+  }
+}

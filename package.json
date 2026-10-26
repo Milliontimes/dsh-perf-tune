@@ -1,0 +1,58 @@
+{
+  "name": "@local/dsh-perf-tune",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read local machine performance metrics and tune GPU clocks/power through audited, safety-enveloped channels (nvidia-smi + the OEM console's local MQTT bus). Metric and control catalogues are NOT hardcoded here — callers describe them per call; only the non-widenable safety envelope, write cooldown, audit trail and read-back verification live in this plugin.",
+  "icon": "./icon.svg",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "lib/**/*.js",
+    "cordis.patch.yml",
+    "config/perf.example.json",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "CONTRACT.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.2.1-rc.2"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "live-read": "node scripts/live-read.mjs"
+  },
+  "license": "MIT",
+  "author": "Milliontimes",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "gpu",
+    "nvidia-smi",
+    "mqtt",
+    "performance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milliontimes/dsh-perf-tune.git"
+  },
+  "homepage": "https://github.com/Milliontimes/dsh-perf-tune#readme",
+  "bugs": {
+    "url": "https://github.com/Milliontimes/dsh-perf-tune/issues"
+  }
+}
