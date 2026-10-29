@@ -76,7 +76,7 @@ Copy-Item <仓库绝对路径>\config\perf.example.json "$env:USERPROFILE\.dsh\p
 
 ```powershell
 cd <仓库绝对路径>
-node --test test/            # 162 个测试，全绿（无需真实硬件/网络）
+node --test                  # 162 个测试，全绿（无需真实硬件/网络）
 node scripts/live-read.mjs   # 真机只读冒烟（不会写硬件、不向控制面 topic 发布）
 ```
 

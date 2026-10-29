@@ -29,7 +29,7 @@ DSH（DeepSeek Harness）插件：给 agent 提供「读本机性能指标 / 调
 | `lib/channel-command.js` | T2 | 只读命令通道（白名单） |
 | `lib/mqtt-client.js` | T1 | 最小 MQTT 3.1.1 客户端（零依赖） |
 | `lib/channel-mqtt.js` | T1 | MQTT 读（订阅收消息）/ 发布 |
-| `test/*.test.mjs` | 各自 | `node --test test/` 必须全绿 |
+| `test/*.test.mjs` | 各自 | `node --test` 必须全绿 |
 | `README.md`, `config/perf.example.json`, `scripts/live-read.mjs`, `test/tools.test.mjs` | Lead | 文档 / 示例 / 实测脚本 / 工具层测试 |
 
 > 不要运行 `npm/pnpm install`，不要联网，不要对真实硬件**写入**（只读命令可以跑，例如 `nvidia-smi --query-gpu=...`、MQTT 订阅）。
@@ -403,7 +403,7 @@ export async function readAuditTail({ limit = 10, config, env, fs } = {})
 ## 11. 测试要求
 
 - 每个模块至少一个 `test/<module>.test.mjs`，用 `node:test` + `node:assert/strict`。
-- `node --test test/` 必须全绿（cwd = `<仓库根目录>`）。
+- `node --test` 必须全绿（cwd = `<仓库根目录>`；Node 22 不支持把目录参数传给 `--test`）。
 - 不得依赖真实硬件/网络；MQTT 客户端测试用本进程 loopback 假 broker（监听 `127.0.0.1:0` 取随机端口）。
 - 覆盖点：
   - T1：CONNACK rc=0/rc=2/rc=4、粘包/拆包、retained 消息、QoS1 PUBACK、超时、publish retain=true 拒绝、payload>2048 拒绝、topics 校验、未配置凭据 → `E_CONFIG`。
@@ -417,7 +417,7 @@ export async function readAuditTail({ limit = 10, config, env, fs } = {})
 完成后给 Lead 一条消息，包含：
 
 1. 实际写入的文件清单（相对 `<仓库根目录>`）。
-2. `node --test test/` 的通过/失败统计。
+2. `node --test` 的通过/失败统计。
 3. 与契约不一致或需要 Lead 决策的地方（如果有）。
 4. 你做过的**只读**实机验证（如有）：命令 + 关键输出（例如 `nvidia-smi --query-gpu=...`）。
 

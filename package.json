@@ -34,7 +34,7 @@
     "dsh": ">=0.2.1-rc.2"
   },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test",
     "live-read": "node scripts/live-read.mjs"
   },
   "license": "MIT",
