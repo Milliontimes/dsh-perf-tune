@@ -354,7 +354,7 @@ write: { hardMinIntervalMs: 1000, maxPayloadDepth: 8 },
 - `payloadJson` 字符串按 UTF-8 计算字节数，> `maxPayloadBytes` → `E_SAFETY`。
 - `JSON.parse` 失败、根不是普通对象、含 `__proto__`/`constructor`/`prototype` 键、嵌套深度 > 8 → `E_SAFETY`/`E_ARGS`（解析失败用 `E_ARGS`）。
 - 递归遍历：数值/布尔值 → 依次匹配 `numeric` 规则（首个匹配生效）；命中后校验区间，并把 `{key,value,min,max}` 记进 `checked`；未命中任何规则的数值/布尔 → `E_SAFETY`（message 列出未知 key）。
-- 字符串值：不校验内容，但单个字符串 > 256 字符 → `E_SAFETY`；`Action` 类字符串同样适用。
+- 字符串值：**若其叶子键命中 `numeric` 规则，一律 `E_SAFETY`**——数值包线字段必须是 JSON 数字，`{"ConfigurableTGPTarget":"200"}` 这类字符串形式不能绕过区间校验（数组元素同样适用，如 `{"FanDuty":["80"]}`、`{"Values":[{"DynamicBoost":"25"}]}`）。其余字符串不校验内容，但单个字符串 > 256 字符 → `E_SAFETY`；`Action` 类字符串（如 `{"Action":"OPERATING_TURBO_MODE"}`）照常允许。
 - 数组：允许，元素同样递归校验（深度计 1）。
 - 返回 `{ topic, payload, bytes, checked }`。
 - `limits.mqtt.numeric` 里配置收窄过的项要参与匹配（配置项 key = 硬包线规则 key，如 `ConfigurableTGPTarget`）。

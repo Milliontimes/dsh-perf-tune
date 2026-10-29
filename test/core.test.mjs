@@ -1081,6 +1081,64 @@ test('envelope: checkMqttPublish 布尔 / 数组 / 字符串上限', () => {
   );
 });
 
+test('envelope: checkMqttPublish 数值字段的字符串形式 → E_SAFETY（不能绕过包线）', () => {
+  const cases = [
+    ['{"ConfigurableTGPTarget":"200"}', /ConfigurableTGPTarget/], // 越界字符串
+    ['{"ConfigurableTGPTarget":"120"}', /ConfigurableTGPTarget/], // 数值合法但类型不对
+    ['{"DynamicBoost":"25"}', /DynamicBoost/],
+    ['{"PL1":"130"}', /PL1/],
+    ['{"GPU":{"FanDuty":"80"}}', /GPU\.FanDuty/],
+    ['{"FanDuty":["80"]}', /FanDuty\[0\]/], // 数组元素继承父属性名
+    ['{"Values":[{"DynamicBoost":"25"}]}', /Values\[0\]\.DynamicBoost/],
+  ];
+  for (const [text, pattern] of cases) {
+    const err = assertPerfError(
+      () => checkMqttPublish('Customize/Control', text, DEFAULT_LIMITS),
+      'E_SAFETY',
+      pattern,
+    );
+    assert.match(err.message, /JSON 数字/);
+  }
+});
+
+test('envelope: checkMqttPublish 普通字符串仍允许且数值包线边界不变', () => {
+  // 非数值 key 的普通字符串不受影响
+  const action = checkMqttPublish(
+    'Customize/Control',
+    '{"Action":"OPERATING_TURBO_MODE"}',
+    DEFAULT_LIMITS,
+  );
+  assert.deepEqual(action.checked, []);
+
+  // 同一 payload 里字符串与合法数值共存：数值正常记入 checked
+  const mixed = checkMqttPublish(
+    'Customize/Control',
+    JSON.stringify({ Action: 'OPERATING_TURBO_MODE', ConfigurableTGPTarget: 140 }),
+    DEFAULT_LIMITS,
+  );
+  assert.deepEqual(mixed.checked, [
+    { key: 'ConfigurableTGPTarget', value: 140, min: 60, max: 140 },
+  ]);
+
+  // 数值形式的既有边界不变：140 通过、141 拒绝
+  assertPerfError(
+    () => checkMqttPublish('Customize/Control', '{"ConfigurableTGPTarget":141}', DEFAULT_LIMITS),
+    'E_SAFETY',
+    /141/,
+  );
+
+  // 收窄后的规则同样拒绝字符串形式，并在 message 里带出收窄区间
+  const narrowed = effectiveLimits(
+    validateConfig({ limits: { mqtt: { numeric: { ConfigurableTGPTarget: { max: 115 } } } } }),
+  );
+  const err = assertPerfError(
+    () => checkMqttPublish('Customize/Control', '{"ConfigurableTGPTarget":"110"}', narrowed),
+    'E_SAFETY',
+    /ConfigurableTGPTarget/,
+  );
+  assert.match(err.message, /60\.\.115/);
+});
+
 test('envelope: checkMqttPublish 使用收窄后的数值包线', () => {
   const config = validateConfig({
     limits: { mqtt: { numeric: { ConfigurableTGPTarget: { max: 115 } } } },
