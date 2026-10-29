@@ -21,7 +21,8 @@
     "locale/*.json",
     "icon.svg",
     "README.md",
-    "CONTRACT.md"
+    "CONTRACT.md",
+    "docs/**/*.md"
   ],
   "dsh": {
     "bundle": {
