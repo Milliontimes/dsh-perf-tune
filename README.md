@@ -18,7 +18,7 @@
 ## 适配机型与声明
 
 - **适配机型**：机械革命 极光X 2024（MECHREVO 极光X，RTX 4070 Laptop，Windows 11）。OEM 控制台的 MQTT 端点与安全包线按该机型实测/逆向得到，其它机型不一定通用。
-- **凭据**：仓库**不包含**任何 MQTT/设备凭据。OEM 控制台 broker 凭据可能因机型、控制台版本而异，必须在**本机**配置文件中自行填写；未配置时只有 MQTT 通道报 `E_CONFIG`。
+- **凭据**：仓库**不包含**任何 MQTT/设备凭据。OEM 控制台 broker 凭据可能因机型、控制台版本而异，必须在**本机**配置文件中自行填写；未配置时只有 MQTT 通道报 `E_CONFIG`。获取途径见 [docs/MQTT-CREDENTIALS.md](docs/MQTT-CREDENTIALS.md)。
 - **AIGC 声明**：代码、测试与文档由 AI（DeepSeek Harness / DeepSeek 模型）辅助生成，并经过人工审阅与实机验证。真机写入硬件前请先用 `perf_limits` 与 dry-run 确认。
 - **License**：MIT，欢迎 fork / issue / PR。适配新机型时建议把差异做成配置或独立包线，而不是放宽硬包线。
 
@@ -43,7 +43,7 @@ New-Item -ItemType Directory -Force "$env:USERPROFILE\.dsh\perf-tune" | Out-Null
 Copy-Item <仓库绝对路径>\config\perf.example.json "$env:USERPROFILE\.dsh\perf-tune\config.json"
 ```
 
-然后按 [docs/CONFIG.md](docs/CONFIG.md) 填 `mqtt.read` / `mqtt.write`。配置文件默认路径 `%USERPROFILE%\.dsh\perf-tune\config.json`，每次工具调用都重新读取、不缓存。
+然后按 [docs/CONFIG.md](docs/CONFIG.md) 填 `mqtt.read` / `mqtt.write`；**凭据如何获取**（从本机 OEM 控制台提取 / loopback 抓包）见 [docs/MQTT-CREDENTIALS.md](docs/MQTT-CREDENTIALS.md)。配置文件默认路径 `%USERPROFILE%\.dsh\perf-tune\config.json`，每次工具调用都重新读取、不缓存。
 
 ### 3. 用法
 
@@ -66,6 +66,7 @@ Copy-Item <仓库绝对路径>\config\perf.example.json "$env:USERPROFILE\.dsh\p
 | --- | --- |
 | [docs/INSTALL.md](docs/INSTALL.md) | 普通/桌面版安装、HMR 热重载、卸载 |
 | [docs/CONFIG.md](docs/CONFIG.md) | 配置字段、MQTT 凭据、包线收窄 |
+| [docs/MQTT-CREDENTIALS.md](docs/MQTT-CREDENTIALS.md) | 如何获取本机 OEM 控制台 MQTT 凭据 |
 | [docs/USAGE.md](docs/USAGE.md) | 三个工具的用法、示例与错误码 |
 | [docs/SECURITY.md](docs/SECURITY.md) | 安全模型、硬包线、审计、已知限制 |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | 测试、真机只读冒烟、目录结构 |

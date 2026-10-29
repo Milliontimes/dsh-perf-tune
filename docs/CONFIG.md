@@ -6,7 +6,7 @@
 - 可用环境变量 `DSH_PERF_TUNE_CONFIG=<绝对路径>` 指向别处
 - 每次工具调用都重新读文件、**不缓存**，改配置不需要重启插件
 
-不建配置文件也能用 `nvidia-smi` / HTTP / command 通道；**MQTT 通道必须先填本机 OEM 控制台 broker 凭据**（仓库不附带任何凭据）。
+不建配置文件也能用 `nvidia-smi` / HTTP / command 通道；**MQTT 通道必须先填本机 OEM 控制台 broker 凭据**（仓库不附带任何凭据，获取途径见 [MQTT-CREDENTIALS.md](MQTT-CREDENTIALS.md)）。
 
 从示例开始：
 
@@ -34,7 +34,7 @@ Copy-Item <仓库绝对路径>\config\perf.example.json "$env:USERPROFILE\.dsh\p
 
 ## MQTT 凭据（必须自行配置）
 
-插件**不内置、不附带**任何 MQTT 凭据：broker 的凭据可能因机型、控制台版本而异，照抄别人的值大概率连不上。把下面两段填成**你本机** OEM 控制台 broker 实际接受的身份：
+插件**不内置、不附带**任何 MQTT 凭据：broker 的凭据可能因机型、控制台版本而异，照抄别人的值大概率连不上。**如何在本机取得凭据**见 [MQTT-CREDENTIALS.md](MQTT-CREDENTIALS.md)；取得后把下面两段填成**你本机** OEM 控制台 broker 实际接受的身份：
 
 ```json
 {
