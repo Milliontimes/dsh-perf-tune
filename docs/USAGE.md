@@ -15,14 +15,14 @@
   "fields": ["power.draw","temperature.gpu","clocks.gr","clocks.mem","clocks.max.gr","clocks.max.mem","utilization.gpu","pstate","fan.speed","power.limit"] }
 ```
 
-返回示例（RTX 4070 Laptop 实测）：
+返回示例（示意值，非本机实测；字段形状与真实返回一致）：
 
 ```json
 { "kind": "nvidia-smi", "fields": [
-  { "name": "power.draw", "raw": "139.14", "value": 139.14 },
-  { "name": "temperature.gpu", "raw": "86", "value": 86 },
-  { "name": "clocks.gr", "raw": "2415", "value": 2415 },
-  { "name": "clocks.mem", "raw": "8501", "value": 8501 },
+  { "name": "power.draw", "raw": "95.50", "value": 95.5 },
+  { "name": "temperature.gpu", "raw": "72", "value": 72 },
+  { "name": "clocks.gr", "raw": "1800", "value": 1800 },
+  { "name": "clocks.mem", "raw": "7000", "value": 7000 },
   { "name": "fan.speed", "raw": "[N/A]", "value": null }
 ] }
 ```

@@ -1,7 +1,6 @@
 {
-  "name": "@local/dsh-perf-tune",
+  "name": "dsh-perf-tune",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "Read local machine performance metrics and tune GPU clocks/power through audited, safety-enveloped channels (nvidia-smi + the OEM console's local MQTT bus). Metric and control catalogues are NOT hardcoded here — callers describe them per call; only the non-widenable safety envelope, write cooldown, audit trail and read-back verification live in this plugin.",
   "icon": "./icon.svg",
@@ -16,6 +15,7 @@
   "files": [
     "index.js",
     "lib/**/*.js",
+    "scripts/**/*.mjs",
     "cordis.patch.yml",
     "config/perf.example.json",
     "locale/*.json",

@@ -12,9 +12,9 @@
 dsh plugin --profile web add "link:<仓库绝对路径>"
 
 # 卸载
-dsh plugin --profile web remove @local/dsh-perf-tune
+dsh plugin --profile web remove dsh-perf-tune
 
-# 查看 profile 组合后的插件层（应出现 `@local/dsh-perf-tune` 行）
+# 查看 profile 组合后的插件层（应出现 `dsh-perf-tune` 行）
 dsh --profile web --dump-config | Select-String -Context 0,2 perf-tune
 ```
 
@@ -25,13 +25,13 @@ dsh --profile web --dump-config | Select-String -Context 0,2 perf-tune
 - **推荐：应用内插件管理器**（`plugin_manager install_bundle`，`dshmarket` / 插件页），填**本地绝对路径** `<仓库绝对路径>`（接受 npm 包名 / 本地绝对路径 / git 仓库 / tgz 直链四类 spec）。
 - **手工等价操作**（在本机按此装好并验证；操作前备份 `package.json` / `pnpm-lock.yaml`）：
 
-  1. 在 `C:\Users\<你>\.dsh\profiles\desktop\node_modules\@local\` 下建 junction：
+  1. 在 `C:\Users\<你>\.dsh\profiles\desktop\node_modules\` 下建 junction：
      ```powershell
-     New-Item -ItemType Junction -Path '<profile>\node_modules\@local\dsh-perf-tune' -Target '<仓库绝对路径>'
+     New-Item -ItemType Junction -Path '<profile>\node_modules\dsh-perf-tune' -Target '<仓库绝对路径>'
      ```
   2. 编辑 `<profile>\package.json`：`dependencies` 加
-     `"@local/dsh-perf-tune": "link:<仓库绝对路径>"`，并在 `dsh.profile.bundles` **末尾**追加
-     `"@local/dsh-perf-tune"`。
+     `"dsh-perf-tune": "link:<仓库绝对路径>"`，并在 `dsh.profile.bundles` **末尾**追加
+     `"dsh-perf-tune"`。
   3. DSH 的 HMR 监听到 profile 清单/补丁变化后会自动 recompose 热插拔（实测：保存 `package.json` 后当前会话立刻出现三个 `perf_*` 工具，无需重启）。若没热插拔，重启桌面版。
   4. 卸载：从 `dependencies`、`dsh.profile.bundles` 删掉对应项，删除 junction，重启 / 等热重载。
 

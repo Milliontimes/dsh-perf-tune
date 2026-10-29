@@ -11,10 +11,10 @@
 
 ```powershell
 cd <仓库绝对路径>
-node --test test/            # 160 个测试，全绿（无需真实硬件/网络）
+node --test test/            # 162 个测试，全绿（无需真实硬件/网络）
 ```
 
-测试覆盖：错误码、配置加载/校验/深合并、硬包线收窄与拒绝、nvidia-smi 解析与写参数拼装、MQTT 3.1.1 报文（含粘包/拆包/retained/QoS1/超时）、HTTP 白名单、命令白名单、审计轮转、工具层参数校验、未配置 MQTT 凭据 → `E_CONFIG`。
+测试覆盖：错误码、配置加载/校验/深合并、硬包线收窄与拒绝、MQTT 数值字段的字符串绕过拒绝、nvidia-smi 解析与写参数拼装、MQTT 3.1.1 报文（含粘包/拆包/retained/QoS1/超时）、HTTP 白名单、命令白名单、审计轮转、工具层参数校验、未配置 MQTT 凭据 → `E_CONFIG`。
 
 ## 真机只读冒烟
 
@@ -46,7 +46,8 @@ dsh-perf-tune/
 │   ├── channel-http.js      # HTTP 只读通道（allowHosts 白名单）
 │   └── channel-command.js   # 白名单只读命令通道
 ├── scripts/live-read.mjs    # 真机只读冒烟
-├── test/                    # 160 个 node:test 用例
+├── test/                    # 162 个 node:test 用例
+├── .github/workflows/test.yml # CI：push/PR 跑 node --test
 ├── docs/                    # 安装/配置/用法/安全/开发文档
 └── CONTRACT.md              # 实现契约
 ```

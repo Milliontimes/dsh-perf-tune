@@ -6,4 +6,4 @@
 # 只做一次 insert，热安装/卸载都不会重启其它服务。
 - insert:
     - id: perf-tune
-      name: '@local/dsh-perf-tune'
+      name: 'dsh-perf-tune'

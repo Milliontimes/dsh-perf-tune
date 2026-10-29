@@ -19,7 +19,7 @@
  * 注意：本插件是 `link:` 安装，插件目录解析不到 profile 的 node_modules，因此**零第三方依赖**，
  * 只能 import node: 内置模块与包内相对路径。
  *
- * @module @local/dsh-perf-tune
+ * @module dsh-perf-tune
  */
 
 import { appendAudit, auditPath, readAuditTail } from './lib/audit.js'

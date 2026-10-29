@@ -49,3 +49,4 @@
 4. **MQTT 是明文本地连接**：仅连 `127.0.0.1`，无 TLS；broker 凭据不随插件提供，需在本机配置文件中自行填写（不同机型/控制台版本可能不同）。
 5. **`perf_read` 的 `fields` 不做白名单**：nvidia-smi 不认识的字段会返回 `E_CHANNEL`（stderr 原样带回）。
 6. **写入是进程级串行**：冷却按进程内状态算，不跨 DSH 重启持久化（重启后第一次写入立即允许）。
+7. **PATH / 当前目录存在同名可执行文件的风险**：`nvidiaSmi.path` 未配置时，`nvidia-smi` 按 PATH 解析；Windows 创建进程时当前目录也会参与搜索，因此 PATH 靠前或工作目录里被投放的 `nvidia-smi.exe` 可能被调用。`command` 通道的 `allowPrograms` 按 **basename** 匹配，同样依赖 PATH 解析，无法区分同名不同来源的程序。缓解：在配置里把 `nvidiaSmi.path` 设为**绝对路径**；命令通道优先用 `command.allowPaths` 配**绝对路径**（program 携带路径分隔符时只匹配 `allowPaths`）；并只在可信工作目录下运行 DSH。
