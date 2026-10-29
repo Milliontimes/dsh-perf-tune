@@ -165,7 +165,7 @@ async function main() {
     } catch (error) {
       const message = describeError(error)
       const dashboardDown = /ECONNREFUSED|ECONNRESET|E_NOT_FOUND|fetch failed|连接被拒绝/i.test(message)
-      record('http.read(local-dashboard 4014)', minerDown, { skipped: dashboardDown, reason: message })
+      record('http.read(local-dashboard 4014)', dashboardDown, { skipped: dashboardDown, reason: message })
     }
 
     // ── 5. 审计目录可写性（写一条 dry-run 风格自检记录）───────────────

@@ -49,7 +49,7 @@ ilspycmd -p -o .\gcu-src "<GCUBridge.exe 实际路径>"
 
 ## 方法 B：抓本机 loopback 流量（控制台在跑时）
 
-broker 只监听本机，控制台与它之间是明文 MQTT，因此可以直接抓 CONNECT 报文读取身份。
+控制台连接 broker 走本机 loopback（`127.0.0.1`），这一段是明文 MQTT，因此可以直接抓 CONNECT 报文读取身份。
 
 1. 安装 Wireshark（安装时勾选 Npcap 的 loopback 支持）。
 2. 选择 **Adapter for loopback traffic capture**（Npcap Loopback Adapter），开始抓包。
